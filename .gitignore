@@ -1,0 +1,39 @@
+# ----------------------
+# C# / .NET
+# ----------------------
+bin/
+obj/
+*.user
+*.suo
+*.vscode
+*.DS_Store
+*.dbmdl
+*.pdb
+*.cache
+*.log
+*.vs
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# ----------------------
+# React / Node.js
+# ----------------------
+node_modules/
+build/
+dist/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ----------------------
+# OS / Misc
+# ----------------------
+Thumbs.db
+*.bak
+*.tmp
