@@ -48,7 +48,16 @@ function App() {
     getTodos();
   }, []);
 
+  // ----------------------------------------------------
+  // קוד חדש: חישוב סטטיסטיקה
+  const totalCount = todos.length;
+  // ודאי שכל פריט במערך ה-todos מכיל שדה בשם isComplete
+  const completedCount = todos.filter(todo => todo.isComplete).length;
+  const openCount = totalCount - completedCount;
+  // ----------------------------------------------------
+
   return (
+    // ⚠️ הערה: שינינו את ה-ID ל-className="todoapp" כדי להתאים ל-CSS החדש!
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
@@ -79,6 +88,24 @@ function App() {
           ))}
         </ul>
       </section>
+
+      {/* ---------------------------------------------------- */}
+      {/* קוד חדש: תצוגת הסטטיסטיקה (באמצעות ה-CSS החדש) */}
+      <div className="statistics">
+          <div className="stat-item stat-total">
+              <strong>{totalCount}</strong>
+              <span>סה"כ משימות</span>
+          </div>
+          <div className="stat-item stat-completed">
+              <strong>{completedCount}</strong>
+              <span>הושלמו</span>
+          </div>
+          <div className="stat-item stat-open">
+              <strong>{openCount}</strong>
+              <span>פתוחות</span>
+          </div>
+      </div>
+      {/* ---------------------------------------------------- */}
     </section>
   );
 }
