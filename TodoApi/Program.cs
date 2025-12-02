@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()   // מאפשר לכל מקור
+        policy.WithOrigins("https://todolistreact-master-t5tk.onrender.com")
               .AllowAnyHeader()   // מאפשר כל כותר
               .AllowAnyMethod();  // מאפשר כל HTTP method (GET, POST, PUT, DELETE)
     });
