@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// הגדרת ה-DB Context (ללא שינוי מהותי)
 builder.Services.AddDbContext<ToDoDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("ToDoDB"),
@@ -11,31 +13,36 @@ builder.Services.AddDbContext<ToDoDbContext>(options =>
     )
 );
 
-// 1. הגדרת שירותי CORS
+// ===========================================
+// ✅ 1. תיקון CORS: הגדרת מדיניות עם שם (RenderPolicy)
 // ===========================================
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    // משתמשים ב-AddPolicy ונותנים שם: "RenderPolicy"
+    options.AddPolicy(name: "RenderPolicy", policy => 
     {
+        // כתובת ה-React המדויקת שלך ב-Render
         policy.WithOrigins("https://todolistreact-master-t5tk.onrender.com")
-              .AllowAnyHeader()   // מאפשר כל כותר
-              .AllowAnyMethod();  // מאפשר כל HTTP method (GET, POST, PUT, DELETE)
+              .AllowAnyHeader()    // מאפשר כל כותר
+              .AllowAnyMethod();   // מאפשר כל HTTP method
     });
 });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();       // יוצר את JSON של ה-API
-    app.UseSwaggerUI();     // יוצר את הממשק הגרפי שניתן לראות בדפדפן
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-
 // ===========================================
-// 2. הפעלת CORS
+// ✅ 2. תיקון CORS: הפעלת המדיניות עם השם
 // ===========================================
-app.UseCors();
+app.UseCors("RenderPolicy"); // קריאה מפורשת למדיניות "RenderPolicy"
 
 var itemsApi = app.MapGroup("/items");
 
